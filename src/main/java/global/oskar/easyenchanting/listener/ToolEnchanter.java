@@ -28,7 +28,12 @@ public class ToolEnchanter implements Listener {
 
             if (!title.equals("§5Werkzeuge verzaubern")) return;
             if (enchant == null) return;
-            if (!ItemChecker.checkforTools(enchant)) return;
+            if (e.getCurrentItem() == null) return;
+            if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
+                p.closeInventory();
+                Utils.openHelp(p);
+            }
+            if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();            if (!ItemChecker.checkforTools(enchant)) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
                 case "§bEfficiency": {

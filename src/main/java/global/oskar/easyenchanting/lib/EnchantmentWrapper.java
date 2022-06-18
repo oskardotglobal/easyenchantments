@@ -26,7 +26,10 @@ public class EnchantmentWrapper {
     }
 
     public void enchant(ItemStack item) {
-        if (p.getLevel() >= cost) {
+        if (item.getEnchantments().size() == 3) {
+            p.closeInventory();
+            Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
+        } else if (p.getLevel() >= cost) {
             Enchantment ench = org.bukkit.enchantments.EnchantmentWrapper.getByKey(NamespacedKey.minecraft(name));
             int level = item.getEnchantmentLevel(ench);
 

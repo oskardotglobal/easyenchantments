@@ -26,8 +26,14 @@ public class WeaponEnchanter implements Listener {
             String title = e.getView().getTitle();
             ItemStack enchant = inv.getItem(40);
 
-            if (!title.equals("§5Werkzeuge verzaubern")) return;
+            if (!title.equals("§5Waffen verzaubern")) return;
             if (enchant == null) return;
+            if (e.getCurrentItem() == null) return;
+            if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
+                p.closeInventory();
+                Utils.openHelp(p);
+            }
+            if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();
             if (!ItemChecker.checkforWeapon(enchant) || enchant.getType() != Material.BOW || enchant.getType() != Material.CROSSBOW) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
@@ -57,14 +63,14 @@ public class WeaponEnchanter implements Listener {
                     break;
                 }
 
-                case "§bBane of Arthopods": {
+                case "§bBane of Arthropods": {
                     e.setCancelled(true);
 
                     if (ItemChecker.checkforWeapon(enchant)) {
                         p.closeInventory();
-                        Utils.sendMessage(p, "Du kannst nur Nahkampfwaffen mit Bane of Arthopods verzaubern!", ChatColor.RED);
+                        Utils.sendMessage(p, "Du kannst nur Nahkampfwaffen mit Bane of Arthropods verzaubern!", ChatColor.RED);
                     } else {
-                        EnchantmentWrapper ench = new EnchantmentWrapper("bane_of_arthopods", p);
+                        EnchantmentWrapper ench = new EnchantmentWrapper("bane_of_arthropods", p);
                         ench.enchant(enchant);
                     }
                     break;
@@ -133,7 +139,7 @@ public class WeaponEnchanter implements Listener {
                         p.closeInventory();
                         Utils.sendMessage(p, "Du kannst nur ein Schwert mit Sweeping Edge verzaubern!", ChatColor.RED);
                     } else {
-                        EnchantmentWrapper ench = new EnchantmentWrapper("sweeping_edge", p);
+                        EnchantmentWrapper ench = new EnchantmentWrapper("sweeping", p);
                         ench.enchant(enchant);
                     }
 
@@ -148,6 +154,132 @@ public class WeaponEnchanter implements Listener {
                         Utils.sendMessage(p, "Du kannst nur einen Trident mit Riptide verzaubern!", ChatColor.RED);
                     } else {
                         EnchantmentWrapper ench = new EnchantmentWrapper("riptide", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bChanneling": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.TRIDENT) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Trident mit Channeling verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("channeling", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bFlame": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.BOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Bogen mit Flame verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("flame", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bInfinity": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.BOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Bogen mit Infinity verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("infinity", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bLoyalty": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.TRIDENT) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Trident mit Loyalty verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("loyalty", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bMultishot": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.CROSSBOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Crossbow mit Multishot verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("multishot", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bPiercing": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.BOW || enchant.getType() != Material.CROSSBOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Bogen oder einen Crossbow mit Piercing verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("piercing", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bPower": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.BOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Bogen mit Power verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("power", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bPunch": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.BOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Bogen mit Punch verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("punch", p);
+                        ench.enchant(enchant);
+                    }
+
+                    break;
+                }
+
+                case "§bQuick Charge": {
+                    e.setCancelled(true);
+
+                    if (enchant.getType() != Material.CROSSBOW) {
+                        p.closeInventory();
+                        Utils.sendMessage(p, "Du kannst nur einen Crossbow mit Quick Charge verzaubern!", ChatColor.RED);
+                    } else {
+                        EnchantmentWrapper ench = new EnchantmentWrapper("quick_charge", p);
                         ench.enchant(enchant);
                     }
 

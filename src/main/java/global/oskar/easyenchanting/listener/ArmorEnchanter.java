@@ -5,6 +5,7 @@ import global.oskar.easyenchanting.lib.EnchantmentWrapper;
 import global.oskar.easyenchanting.utils.ItemChecker;
 import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,12 @@ public class ArmorEnchanter implements Listener {
 
             if (!title.equals("§5Rüstung verzaubern")) return;
             if (enchant == null) return;
+            if (e.getCurrentItem() == null) return;
+            if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
+                p.closeInventory();
+                Utils.openHelp(p);
+            }
+            if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();
             if (!ItemChecker.checkforArmor(enchant)) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
@@ -60,6 +67,20 @@ public class ArmorEnchanter implements Listener {
                 case "§bFeather Falling": {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("feather_falling", p);
+                    ench.enchant(enchant);
+                    break;
+                }
+
+                case "§bSwift Sneak": {
+                    e.setCancelled(true);
+                    EnchantmentWrapper ench = new EnchantmentWrapper("swift_sneak", p);
+                    ench.enchant(enchant);
+                    break;
+                }
+
+                case "§bSoul Speed": {
+                    e.setCancelled(true);
+                    EnchantmentWrapper ench = new EnchantmentWrapper("soul_speed", p);
                     ench.enchant(enchant);
                     break;
                 }

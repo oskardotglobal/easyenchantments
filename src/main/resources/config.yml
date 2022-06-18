@@ -80,7 +80,7 @@ smite:
   max: 6
   cost: 10
   
-bane_of_arthopods:
+bane_of_arthropods:
   max: 6
   cost: 10
   
@@ -96,7 +96,7 @@ looting:
   max: 3
   cost: 10
   
-sweeping_edge:
+sweeping:
   max: 3
   cost: 10
 
@@ -106,4 +106,40 @@ impaling:
 
 riptide:
   max: 5
+  cost: 15
+
+channeling:
+  max: 1
+  cost: 15
+
+flame:
+  max: 1
+  cost: 15
+
+infinity:
+  max: 1
+  cost: 30
+
+loyalty:
+  max: 3
+  cost: 10
+
+multishot:
+  max: 1
+  cost: 20
+
+piercing:
+  max: 4
+  cost: 10
+
+power:
+  max: 3
+  cost: 10
+
+punch:
+  max: 2
+  cost: 10
+
+quick_charge:
+  max: 3
   cost: 15
