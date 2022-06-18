@@ -1,0 +1,109 @@
+# Enable (true) or disable (false) the plugin! [Default is true]
+
+CONFIG:
+  enabled: 'true'
+  prefix: '&5&lEnchanter &l&7>&r '
+  
+#enchantment_id:
+#  cost: 1
+#  max: 3
+
+# Everything
+unbreaking:
+  max: 4
+  cost: 1
+
+vanishing_curse:
+  max: 1
+  cost: 10
+
+# Tools
+efficiency:
+  max: 5
+  cost: 10
+
+silk_touch:
+  max: 1
+  cost: 10
+
+# Armor
+protection:
+  max: 2
+  cost: 10
+
+fire_protection:
+  max: 4
+  cost: 10
+
+blast_protection:
+  max: 4
+  cost: 10
+
+projectile_protection:
+  max: 4
+  cost: 10
+
+feather_falling:
+  max: 10
+  cost: 4
+
+aqua_affinity:
+  max: 1
+  cost: 10
+  
+thorns:
+  max: 3
+  cost: 10
+
+respiration:
+  max: 3
+  cost: 10
+  
+depth_strider:
+  max: 3
+  cost: 10
+  
+frost_walker:
+  max: 2
+  cost: 10
+
+binding_curse:
+  max: 1
+  cost: 10
+
+# Weapons
+sharpness:
+  max: 4
+  cost: 10
+  
+smite:
+  max: 6
+  cost: 10
+  
+bane_of_arthopods:
+  max: 6
+  cost: 10
+  
+knockback:
+  max: 2
+  cost: 10
+  
+fire_aspect:
+  max: 2
+  cost: 10
+  
+looting:
+  max: 3
+  cost: 10
+  
+sweeping_edge:
+  max: 3
+  cost: 10
+
+impaling:
+  max: 6
+  cost: 10
+
+riptide:
+  max: 5
+  cost: 15
