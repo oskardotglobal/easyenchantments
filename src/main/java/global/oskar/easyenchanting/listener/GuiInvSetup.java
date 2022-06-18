@@ -1,5 +1,6 @@
 package global.oskar.easyenchanting.listener;
 
+import global.oskar.easyenchanting.Main;
 import global.oskar.easyenchanting.utils.ArmorGuiLoader;
 import global.oskar.easyenchanting.utils.ToolGuiLoader;
 import global.oskar.easyenchanting.utils.WeaponGuiLoader;
@@ -11,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.logging.Level;
 
 public class GuiInvSetup implements Listener {
 
@@ -51,7 +54,9 @@ public class GuiInvSetup implements Listener {
                     }
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -60,6 +65,8 @@ public class GuiInvSetup implements Listener {
             Player p = (Player)e.getPlayer();
             if (e.getView().getTitle().equalsIgnoreCase("§7Zaubertisch"))
                 p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3.0F, 3.0F);
-        } catch (Exception exception) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 }

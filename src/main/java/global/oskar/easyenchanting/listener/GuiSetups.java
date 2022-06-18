@@ -1,5 +1,6 @@
 package global.oskar.easyenchanting.listener;
 
+import global.oskar.easyenchanting.Main;
 import global.oskar.easyenchanting.utils.ItemChecker;
 import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
@@ -11,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.logging.Level;
 
 public class GuiSetups implements Listener {
     @EventHandler
@@ -26,7 +29,9 @@ public class GuiSetups implements Listener {
                 e.setCancelled(true);
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 3.0F, 3.0F);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 
     @EventHandler
@@ -43,7 +48,9 @@ public class GuiSetups implements Listener {
                 } else {
                     p.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 3.0F, 3.0F);
                 }
-        } catch (Exception ignored) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 
     @EventHandler
@@ -66,6 +73,8 @@ public class GuiSetups implements Listener {
                     p.closeInventory();
                     Utils.sendMessage(p, "Du musst ein Item in das Menü legen!", ChatColor.RED);
                 }
-        } catch (Exception ignored) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 }

@@ -28,11 +28,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
 public class Main extends JavaPlugin {
   public static Main plugin;
-  
+  public static Logger log;
+
   public void onEnable() {
     plugin = this;
+    log = this.getLogger();
     loadConfig();
     registerListeners();
   }

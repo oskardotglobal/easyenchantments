@@ -15,6 +15,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.logging.Level;
+
 public class WeaponEnchanter implements Listener {
     FileConfiguration config = Main.plugin.getConfig();
 
@@ -306,6 +308,8 @@ public class WeaponEnchanter implements Listener {
                     break;
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ex) {
+            Main.log.log(Level.SEVERE, ex.getMessage());
+        }
     }
 }
