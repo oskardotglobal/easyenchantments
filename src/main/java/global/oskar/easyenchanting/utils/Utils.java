@@ -26,7 +26,7 @@ public class Utils {
         contents.addPage("""
                 §7§lZaubertisch-Hilfe
                 
-                Der Zaubertisch ist auf diesem Server nicht so, wie er 
+                Der Zaubertisch ist auf diesem Server nicht so, wie er
                 normalerweise ist.
                 
                 Folgendes ist anders:

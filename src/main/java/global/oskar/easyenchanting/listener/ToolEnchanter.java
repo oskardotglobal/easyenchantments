@@ -38,35 +38,31 @@ public class ToolEnchanter implements Listener {
             if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();            if (!ItemChecker.checkforTools(enchant)) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "§bEfficiency": {
+                case "§bEfficiency" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("efficiency", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bSilk Touch": {
+                case "§bSilk Touch" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("silk_touch", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bUnbreaking": {
+                case "§bUnbreaking" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bCurse of Vanishing": {
+                case "§bCurse of Vanishing" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                default: {
+                default -> {
                     p.closeInventory();
                     Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
                     break;

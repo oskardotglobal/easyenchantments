@@ -38,112 +38,97 @@ public class ArmorEnchanter implements Listener {
             if (!ItemChecker.checkforArmor(enchant)) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "§bProtection": {
+                case "§bProtection" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("protection", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bFire Protection": {
+                case "§bFire Protection" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("fire_protection", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bBlast Protection": {
+                case "§bBlast Protection" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("blast_protection", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bProjectile Protection": {
+                case "§bProjectile Protection" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("projectile_protection", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bFeather Falling": {
+                case "§bFeather Falling" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("feather_falling", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bSwift Sneak": {
+                case "§bSwift Sneak" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("swift_sneak", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bSoul Speed": {
+                case "§bSoul Speed" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("soul_speed", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bRespiration": {
+                case "§bRespiration" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("respiration", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bAqua Affinity": {
+                case "§bAqua Affinity" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("aqua_affinity", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bCurse of Vanishing": {
+                case "§bCurse of Vanishing" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bUnbreaking": {
+                case "§bUnbreaking" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bDepth Strider": {
+                case "§bDepth Strider" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("depth_strider", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bFrost Walker": {
+                case "§bFrost Walker" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("frost_walker", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bThorns": {
+                case "§bThorns" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("thorns", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                case "§bCurse of Binding": {
+                case "§bCurse of Binding" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("binding_curse", p);
                     ench.enchant(enchant);
                     break;
                 }
-
-                default: {
+                default -> {
                     p.closeInventory();
                     Utils.sendMessage(p, "Du kannst hier nur Rüstung verzaubern!", ChatColor.RED);
                     break;

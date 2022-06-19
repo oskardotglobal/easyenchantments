@@ -28,25 +28,22 @@ public class GuiInvSetup implements Listener {
                 if (item == null) return;
 
                 switch (item.getItemMeta().getDisplayName()) {
-                    case "§5Rüstung verzaubern": {
+                    case "§5Rüstung verzaubern" -> {
                         ArmorGuiLoader.BuildArmorInv(p);
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0F, 3.0F);
                         break;
                     }
-
-                    case "§5Waffen verzaubern": {
+                    case "§5Waffen verzaubern" -> {
                         WeaponGuiLoader.BuildWeaponInv(p);
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0F, 3.0F);
                         break;
                     }
-
-                    case "§5Werkzeuge verzaubern": {
+                    case "§5Werkzeuge verzaubern" -> {
                         ToolGuiLoader.BuildToolInv(p);
                         p.playSound(p.getLocation(), Sound.ENTITY_CHICKEN_EGG, 3.0F, 3.0F);
                         break;
                     }
-
-                    default: {
+                    default -> {
                         if (item.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
                             p.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 3.0F, 3.0F);
                         }

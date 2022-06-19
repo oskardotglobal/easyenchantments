@@ -63,9 +63,7 @@ public class GuiSetups implements Listener {
                     title.equalsIgnoreCase("§Werkzeuge verzaubern")) &&
                     e.getCurrentItem().getType().equals(Material.ENCHANTED_BOOK) &&
                     e.getCurrentItem().getType() != Material.BLACK_STAINED_GLASS_PANE &&
-                    !e.getCurrentItem().getType().equals(Boolean.valueOf(ItemChecker.checkforArmor(e.getCurrentItem()))) &&
-                    !e.getCurrentItem().getType().equals(Boolean.valueOf(ItemChecker.checkforTools(e.getCurrentItem()))) &&
-                    !e.getCurrentItem().getType().equals(Boolean.valueOf(ItemChecker.checkforWeapon(e.getCurrentItem()))))
+                    !ItemChecker.checkforEnchantable(e.getCurrentItem()))
                 if (e.getClickedInventory().getItem(40) != null) {
                     e.setCancelled(false);
                 } else {
