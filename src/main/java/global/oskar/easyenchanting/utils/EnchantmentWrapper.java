@@ -1,4 +1,4 @@
-package global.oskar.easyenchanting.lib;
+package global.oskar.easyenchanting.utils;
 
 import global.oskar.easyenchanting.Main;
 import global.oskar.easyenchanting.utils.Utils;

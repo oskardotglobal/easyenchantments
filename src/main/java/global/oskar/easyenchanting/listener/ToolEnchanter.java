@@ -1,7 +1,7 @@
 package global.oskar.easyenchanting.listener;
 
 import global.oskar.easyenchanting.Main;
-import global.oskar.easyenchanting.lib.EnchantmentWrapper;
+import global.oskar.easyenchanting.utils.EnchantmentWrapper;
 import global.oskar.easyenchanting.utils.ItemChecker;
 import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
@@ -14,56 +14,49 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.logging.Level;
-
 public class ToolEnchanter implements Listener {
     FileConfiguration config = Main.plugin.getConfig();
 
     @EventHandler(ignoreCancelled = true)
     public void onTryToEnchant(InventoryClickEvent e) {
-        try {
-            Player p = (Player) e.getWhoClicked();
-            Inventory inv = e.getClickedInventory();
-            String title = e.getView().getTitle();
-            ItemStack enchant = inv.getItem(40);
+        String title = e.getView().getTitle();
+        if (!title.equals(ChatColor.stripColor("Werkzeuge verzaubern"))) return;
 
-            if (!title.equals("Werkzeuge verzaubern")) return;
-            if (enchant == null) return;
-            if (e.getCurrentItem() == null) return;
-            if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
+        Player p = (Player) e.getWhoClicked();
+        Inventory inv = e.getClickedInventory();
+        ItemStack enchant = inv.getItem(40);
+
+        if (!Utils.itemExists(enchant)) return;
+        if (!Utils.itemExists(e.getCurrentItem())) return;
+        if (!ItemChecker.checkforTools(enchant)) return;
+        if (e.getCurrentItem().getType() != Material.ENCHANTED_BOOK) return;
+
+        switch (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) {
+            case "Efficiency" -> {
+                e.setCancelled(true);
+                EnchantmentWrapper ench = new EnchantmentWrapper("efficiency", p);
+                ench.enchant(enchant);
+            }
+            case "Silk Touch" -> {
+                e.setCancelled(true);
+                EnchantmentWrapper ench = new EnchantmentWrapper("silk_touch", p);
+                ench.enchant(enchant);
+            }
+            case "Unbreaking" -> {
+                e.setCancelled(true);
+                EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
+                ench.enchant(enchant);
+            }
+            case "Curse of Vanishing" -> {
+                e.setCancelled(true);
+                EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
+                ench.enchant(enchant);
+            }
+            default -> {
                 p.closeInventory();
-                Utils.openHelp(p);
+                Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
             }
-            if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();            if (!ItemChecker.checkforTools(enchant)) return;
-
-            switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "Efficiency" -> {
-                    e.setCancelled(true);
-                    EnchantmentWrapper ench = new EnchantmentWrapper("efficiency", p);
-                    ench.enchant(enchant);
-                }
-                case "Silk Touch" -> {
-                    e.setCancelled(true);
-                    EnchantmentWrapper ench = new EnchantmentWrapper("silk_touch", p);
-                    ench.enchant(enchant);
-                }
-                case "Unbreaking" -> {
-                    e.setCancelled(true);
-                    EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
-                    ench.enchant(enchant);
-                }
-                case "Curse of Vanishing" -> {
-                    e.setCancelled(true);
-                    EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
-                    ench.enchant(enchant);
-                }
-                default -> {
-                    p.closeInventory();
-                    Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
-                }
-            }
-        } catch (Exception ex) {
-            Main.log.log(Level.SEVERE, ex.getMessage());
         }
+
     }
 }
