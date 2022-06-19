@@ -38,12 +38,12 @@ public class EnchantmentWrapper {
                 item.addUnsafeEnchantment(ench, level + 1);
             } else {
                 p.closeInventory();
-                Utils.sendMessage(p, "Dieses Enchantment hat bereits das höchste Level!", ChatColor.RED);
+                Utils.sendMessage(p, "Dieses Enchantment hat bereits das hoechste Level!", ChatColor.RED);
             }
 
         } else {
             p.closeInventory();
-            Utils.sendMessage(p, "Dafür hast du nicht genügend Level!", ChatColor.RED);
+            Utils.sendMessage(p, "Dafuer hast du nicht genuegend Level!", ChatColor.RED);
         }
     }
 }

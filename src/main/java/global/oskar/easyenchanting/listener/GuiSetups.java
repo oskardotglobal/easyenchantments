@@ -16,16 +16,19 @@ import org.bukkit.inventory.ItemStack;
 import java.util.logging.Level;
 
 public class GuiSetups implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onClickInTable(InventoryClickEvent e) {
         try {
             Player p = (Player) e.getWhoClicked();
             String title = e.getView().getTitle();
 
-            if ((e.getCurrentItem().getType() == Material.BLACK_STAINED_GLASS_PANE || e.getCurrentItem().getType() == Material.ENCHANTED_BOOK || e.getCurrentItem().getType() == Material.BOOK || e.getCurrentItem().getType() == Material.BARRIER) &&
+            ItemStack clicked = e.getCurrentItem();
+            if (clicked == null) return;
+
+            if ((clicked.getType() == Material.BLACK_STAINED_GLASS_PANE || clicked.getType() == Material.ENCHANTED_BOOK || clicked.getType() == Material.BOOK || clicked.getType() == Material.BARRIER) &&
                     e.getSlot() != 40 && (
-                    title.equalsIgnoreCase("§5Rüstung verzaubern") || title.equalsIgnoreCase("§5Waffen verzaubern") ||
-                            title.equalsIgnoreCase("§5Werkzeuge verzaubern"))) {
+                    title.equalsIgnoreCase("Ruestung verzaubern") || title.equalsIgnoreCase("Waffen verzaubern") ||
+                            title.equalsIgnoreCase("Werkzeuge verzaubern"))) {
                 e.setCancelled(true);
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 3.0F, 3.0F);
             }
@@ -34,14 +37,14 @@ public class GuiSetups implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onCloseTable(InventoryCloseEvent e) {
         try {
             Player p = (Player) e.getPlayer();
             String title = e.getView().getTitle();
 
-            if (title.equalsIgnoreCase("§5Rüstung verzaubern") || title.equalsIgnoreCase("§5Waffen verzaubern") ||
-                    title.equalsIgnoreCase("§Werkzeuge verzaubern"))
+            if (title.equalsIgnoreCase("Ruestung verzaubern") || title.equalsIgnoreCase("Waffen verzaubern") ||
+                    title.equalsIgnoreCase("Werkzeuge verzaubern"))
                 if (e.getInventory().getItem(40) != null) {
                     p.getInventory().addItem(new ItemStack(e.getInventory().getItem(40)));
                     p.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 3.0F, 3.0F);
@@ -53,23 +56,27 @@ public class GuiSetups implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onTryToEnchantWithNoItem(InventoryClickEvent e) {
         try {
             Player p = (Player) e.getWhoClicked();
             String title = e.getView().getTitle();
 
-            if ((title.equalsIgnoreCase("§5Rüstung verzaubern") || title.equalsIgnoreCase("§5Waffen verzaubern") ||
-                    title.equalsIgnoreCase("§Werkzeuge verzaubern")) &&
-                    e.getCurrentItem().getType().equals(Material.ENCHANTED_BOOK) &&
-                    e.getCurrentItem().getType() != Material.BLACK_STAINED_GLASS_PANE &&
-                    !ItemChecker.checkforEnchantable(e.getCurrentItem()))
+            ItemStack clicked = e.getCurrentItem();
+            if (clicked == null) return;
+
+
+            if ((title.equalsIgnoreCase("Ruestung verzaubern") || title.equalsIgnoreCase("Waffen verzaubern") ||
+                    title.equalsIgnoreCase("Werkzeuge verzaubern")) &&
+                    clicked.getType().equals(Material.ENCHANTED_BOOK) &&
+                    clicked.getType() != Material.BLACK_STAINED_GLASS_PANE &&
+                    !ItemChecker.checkforEnchantable(clicked))
                 if (e.getClickedInventory().getItem(40) != null) {
                     e.setCancelled(false);
                 } else {
                     e.setCancelled(true);
                     p.closeInventory();
-                    Utils.sendMessage(p, "Du musst ein Item in das Menü legen!", ChatColor.RED);
+                    Utils.sendMessage(p, "Du musst ein Item in das Menue legen!", ChatColor.RED);
                 }
         } catch (Exception ex) {
             Main.log.log(Level.SEVERE, ex.getMessage());

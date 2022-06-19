@@ -7,7 +7,6 @@ import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +19,7 @@ import java.util.logging.Level;
 public class WeaponEnchanter implements Listener {
     FileConfiguration config = Main.plugin.getConfig();
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onTryToEnchant(InventoryClickEvent e) {
         try {
             Player p = (Player) e.getWhoClicked();
@@ -28,7 +27,7 @@ public class WeaponEnchanter implements Listener {
             String title = e.getView().getTitle();
             ItemStack enchant = inv.getItem(40);
 
-            if (!title.equals("§5Waffen verzaubern")) return;
+            if (!title.equals("Waffen verzaubern")) return;
             if (enchant == null) return;
             if (e.getCurrentItem() == null) return;
             if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
@@ -39,7 +38,7 @@ public class WeaponEnchanter implements Listener {
             if (!ItemChecker.checkforWeapon(enchant) || enchant.getType() != Material.BOW || enchant.getType() != Material.CROSSBOW) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "§bSharpness" -> {
+                case "Sharpness" -> {
                     e.setCancelled(true);
 
                     if (ItemChecker.checkforWeapon(enchant)) {
@@ -50,9 +49,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bSmite" -> {
+                case "Smite" -> {
                     e.setCancelled(true);
                     if (ItemChecker.checkforWeapon(enchant)) {
                         p.closeInventory();
@@ -61,9 +59,8 @@ public class WeaponEnchanter implements Listener {
                         EnchantmentWrapper ench = new EnchantmentWrapper("smite", p);
                         ench.enchant(enchant);
                     }
-                    break;
                 }
-                case "§bBane of Arthropods" -> {
+                case "Bane of Arthropods" -> {
                     e.setCancelled(true);
 
                     if (ItemChecker.checkforWeapon(enchant)) {
@@ -73,9 +70,8 @@ public class WeaponEnchanter implements Listener {
                         EnchantmentWrapper ench = new EnchantmentWrapper("bane_of_arthropods", p);
                         ench.enchant(enchant);
                     }
-                    break;
                 }
-                case "§bImpaling" -> {
+                case "Impaling" -> {
                     e.setCancelled(true);
 
                     if (ItemChecker.checkforWeapon(enchant)) {
@@ -86,9 +82,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bKnockback" -> {
+                case "Knockback" -> {
                     e.setCancelled(true);
 
                     if (ItemChecker.checkforSword(enchant)) {
@@ -99,9 +94,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bFire Aspect" -> {
+                case "Fire Aspect" -> {
                     e.setCancelled(true);
 
                     if (!ItemChecker.checkforSword(enchant)) {
@@ -112,9 +106,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bLooting" -> {
+                case "Looting" -> {
                     e.setCancelled(true);
 
                     if (!ItemChecker.checkforSword(enchant)) {
@@ -125,9 +118,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bSweeping Edge" -> {
+                case "Sweeping Edge" -> {
                     e.setCancelled(true);
 
                     if (!ItemChecker.checkforSword(enchant)) {
@@ -138,9 +130,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bRiptide" -> {
+                case "Riptide" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.TRIDENT) {
@@ -151,9 +142,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bChanneling" -> {
+                case "Channeling" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.TRIDENT) {
@@ -164,9 +154,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bFlame" -> {
+                case "Flame" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.BOW) {
@@ -177,9 +166,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bInfinity" -> {
+                case "Infinity" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.BOW) {
@@ -190,9 +178,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bLoyalty" -> {
+                case "Loyalty" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.TRIDENT) {
@@ -203,9 +190,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bMultishot" -> {
+                case "Multishot" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.CROSSBOW) {
@@ -216,9 +202,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bPiercing" -> {
+                case "Piercing" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.BOW || enchant.getType() != Material.CROSSBOW) {
@@ -229,9 +214,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bPower" -> {
+                case "Power" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.BOW) {
@@ -242,9 +226,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bPunch" -> {
+                case "Punch" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.BOW) {
@@ -255,9 +238,8 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bQuick Charge" -> {
+                case "Quick Charge" -> {
                     e.setCancelled(true);
 
                     if (enchant.getType() != Material.CROSSBOW) {
@@ -268,24 +250,20 @@ public class WeaponEnchanter implements Listener {
                         ench.enchant(enchant);
                     }
 
-                    break;
                 }
-                case "§bUnbreaking" -> {
+                case "Unbreaking" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
                     ench.enchant(enchant);
-                    break;
                 }
-                case "§bCurse of Vanishing" -> {
+                case "Curse of Vanishing" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
                     ench.enchant(enchant);
-                    break;
                 }
                 default -> {
                     p.closeInventory();
                     Utils.sendMessage(p, "Du kannst hier nur Waffen verzaubern!", ChatColor.RED);
-                    break;
                 }
             }
         } catch (Exception ex) {

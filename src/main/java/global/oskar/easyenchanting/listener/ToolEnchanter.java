@@ -7,7 +7,6 @@ import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +19,7 @@ import java.util.logging.Level;
 public class ToolEnchanter implements Listener {
     FileConfiguration config = Main.plugin.getConfig();
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onTryToEnchant(InventoryClickEvent e) {
         try {
             Player p = (Player) e.getWhoClicked();
@@ -28,7 +27,7 @@ public class ToolEnchanter implements Listener {
             String title = e.getView().getTitle();
             ItemStack enchant = inv.getItem(40);
 
-            if (!title.equals("§5Werkzeuge verzaubern")) return;
+            if (!title.equals("Werkzeuge verzaubern")) return;
             if (enchant == null) return;
             if (e.getCurrentItem() == null) return;
             if (e.getCurrentItem().getType() == Material.WRITTEN_BOOK) {
@@ -38,34 +37,29 @@ public class ToolEnchanter implements Listener {
             if (e.getCurrentItem().getType() == Material.BARRIER) p.closeInventory();            if (!ItemChecker.checkforTools(enchant)) return;
 
             switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "§bEfficiency" -> {
+                case "Efficiency" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("efficiency", p);
                     ench.enchant(enchant);
-                    break;
                 }
-                case "§bSilk Touch" -> {
+                case "Silk Touch" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("silk_touch", p);
                     ench.enchant(enchant);
-                    break;
                 }
-                case "§bUnbreaking" -> {
+                case "Unbreaking" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
                     ench.enchant(enchant);
-                    break;
                 }
-                case "§bCurse of Vanishing" -> {
+                case "Curse of Vanishing" -> {
                     e.setCancelled(true);
                     EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
                     ench.enchant(enchant);
-                    break;
                 }
                 default -> {
                     p.closeInventory();
                     Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
-                    break;
                 }
             }
         } catch (Exception ex) {
