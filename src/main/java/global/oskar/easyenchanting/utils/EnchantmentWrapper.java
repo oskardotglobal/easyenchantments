@@ -1,7 +1,6 @@
 package global.oskar.easyenchanting.utils;
 
 import global.oskar.easyenchanting.Main;
-import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,40 +9,45 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+
 public class EnchantmentWrapper {
-    private final String name;
+    private final String id;
     private final Player p;
     private final int cost;
     private final int max;
 
-    public EnchantmentWrapper(@NotNull String name, @NotNull Player p) {
+    public EnchantmentWrapper(@NotNull String id, @NotNull Player p) {
         final FileConfiguration config = Main.plugin.getConfig();
 
-        this.name = name;
+        this.id = id;
         this.p = p;
-        this.cost = config.getConfigurationSection(name).getInt("cost");
-        this.max = config.getConfigurationSection(name).getInt("max");
+        this.cost = config.getConfigurationSection(id).getInt("cost");
+        this.max = config.getConfigurationSection(id).getInt("max");
     }
 
     public void enchant(ItemStack item) {
         if (item.getEnchantments().size() == 3) {
-            p.closeInventory();
+            Utils.closeInventory(p);
             Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
-        } else if (p.getLevel() >= cost) {
-            Enchantment ench = org.bukkit.enchantments.EnchantmentWrapper.getByKey(NamespacedKey.minecraft(name));
-            int level = item.getEnchantmentLevel(ench);
+            return;
+        }
 
-            if (level <= max) {
-                p.setLevel(p.getLevel() - cost);
-                item.addUnsafeEnchantment(ench, level + 1);
-            } else {
-                p.closeInventory();
-                Utils.sendMessage(p, "Dieses Enchantment hat bereits das hoechste Level!", ChatColor.RED);
-            }
-
-        } else {
-            p.closeInventory();
+        if (p.getLevel() < cost) {
+            Utils.closeInventory(p);
             Utils.sendMessage(p, "Dafuer hast du nicht genuegend Level!", ChatColor.RED);
+            return;
+        }
+
+        Enchantment ench = Utils.getLinkedEnchantment(id);
+        int level = item.getEnchantmentLevel(ench);
+
+        if (level <= max) {
+            p.setLevel(p.getLevel() - cost);
+            item.addUnsafeEnchantment(ench, level + 1);
+        } else {
+            Utils.closeInventory(p);
+            Utils.sendMessage(p, "Dieses Enchantment hat bereits das hoechste Level!", ChatColor.RED);
         }
     }
 }

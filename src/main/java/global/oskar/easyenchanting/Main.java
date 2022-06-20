@@ -24,10 +24,13 @@ import global.oskar.easyenchanting.listener.GUIInvSetup;
 import global.oskar.easyenchanting.listener.GUISetups;
 import global.oskar.easyenchanting.listener.ToolEnchanter;
 import global.oskar.easyenchanting.listener.WeaponEnchanter;
+import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -41,6 +44,7 @@ public class Main extends JavaPlugin {
     loadConfig();
     registerListeners();
     this.getLogger().setLevel(Level.FINEST);
+    new Utils();
   }
   
   public void onDisable() {}
@@ -54,7 +58,7 @@ public class Main extends JavaPlugin {
     pm.registerEvents(new EnchanterInteract(), this);
     pm.registerEvents(new ArmorEnchanter(), this);
   }
-  
+
   public void loadConfig() {
     getConfig().options().copyDefaults(true);
     saveConfig();

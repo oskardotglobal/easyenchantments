@@ -31,7 +31,7 @@ public class GUISetups implements Listener {
 
         if (!Utils.isCustomInventory(title)) return;
 
-        ItemStack clicked = e.getCurrentItem();
+        ItemStack clicked = e.getClickedInventory().getItem(e.getSlot());
         if (!Utils.itemExists(clicked)) return;
         if (!process.contains(clicked.getType())) return;
         if (e.getSlot() == 40) return;
@@ -40,10 +40,10 @@ public class GUISetups implements Listener {
         p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 3.0F, 3.0F);
 
         if (clicked.getType() == Material.WRITTEN_BOOK) {
-            p.closeInventory();
+            Utils.closeInventory(p);
             Utils.openHelp(p);
         } else if (clicked.getType() == Material.BARRIER) {
-            p.closeInventory();
+            Utils.closeInventory(p);
         }
     }
 
@@ -69,7 +69,7 @@ public class GUISetups implements Listener {
         Player p = (Player) e.getWhoClicked();
         String title = e.getView().getTitle();
 
-        ItemStack clicked = e.getCurrentItem();
+        ItemStack clicked = e.getClickedInventory().getItem(e.getSlot());
         if (!Utils.itemExists(clicked)) return;
         if (!Utils.isCustomInventory(title)) return;
         if (clicked.getType() != Material.ENCHANTED_BOOK) return;
@@ -77,7 +77,7 @@ public class GUISetups implements Listener {
         ItemStack item = e.getInventory().getItem(40);
         if (!Utils.itemExists(item)) {
             e.setCancelled(true);
-            p.closeInventory();
+            Utils.closeInventory(p);
             Utils.sendMessage(p, "Du musst ein Item in das Menue legen!", ChatColor.RED);
         }
     }

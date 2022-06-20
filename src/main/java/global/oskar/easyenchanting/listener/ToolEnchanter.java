@@ -6,6 +6,7 @@ import global.oskar.easyenchanting.utils.ItemChecker;
 import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,41 +21,54 @@ public class ToolEnchanter implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onTryToEnchant(InventoryClickEvent e) {
         String title = e.getView().getTitle();
-        if (!title.equals(ChatColor.stripColor("Werkzeuge verzaubern"))) return;
+        if (!ChatColor.stripColor(title).equals("Werkzeuge verzaubern")) return;
 
         Player p = (Player) e.getWhoClicked();
         Inventory inv = e.getClickedInventory();
         ItemStack enchant = inv.getItem(40);
+        ItemStack clicked = e.getClickedInventory().getItem(e.getSlot());
 
         if (!Utils.itemExists(enchant)) return;
-        if (!Utils.itemExists(e.getCurrentItem())) return;
-        if (!ItemChecker.checkforTools(enchant)) return;
-        if (e.getCurrentItem().getType() != Material.ENCHANTED_BOOK) return;
+        if (!Utils.itemExists(clicked)) return;
+        if (!ItemChecker.checkforTools(enchant)) {
+            Utils.closeInventory(p);
+            Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
+            return;
+        }
+        if (clicked.getType() != Material.ENCHANTED_BOOK) return;
 
-        switch (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) {
+        Main.log.warning("Passed checks");
+
+        switch (ChatColor.stripColor(clicked.getItemMeta().getDisplayName())) {
             case "Efficiency" -> {
                 e.setCancelled(true);
                 EnchantmentWrapper ench = new EnchantmentWrapper("efficiency", p);
                 ench.enchant(enchant);
+                break;
             }
             case "Silk Touch" -> {
                 e.setCancelled(true);
                 EnchantmentWrapper ench = new EnchantmentWrapper("silk_touch", p);
                 ench.enchant(enchant);
+                break;
             }
             case "Unbreaking" -> {
                 e.setCancelled(true);
                 EnchantmentWrapper ench = new EnchantmentWrapper("unbreaking", p);
                 ench.enchant(enchant);
+                break;
             }
             case "Curse of Vanishing" -> {
                 e.setCancelled(true);
                 EnchantmentWrapper ench = new EnchantmentWrapper("vanishing_curse", p);
                 ench.enchant(enchant);
+                break;
             }
             default -> {
-                p.closeInventory();
-                Utils.sendMessage(p, "Du kannst hier nur Werkzeuge verzaubern!", ChatColor.RED);
+                e.setCancelled(true);
+                Utils.closeInventory(p);
+                Utils.sendMessage(p, "Du musst ein Item in das Menü legen!", ChatColor.RED);
+                break;
             }
         }
 

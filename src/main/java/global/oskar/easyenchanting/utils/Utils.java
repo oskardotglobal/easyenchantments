@@ -4,15 +4,62 @@ import global.oskar.easyenchanting.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scheduler.BukkitWorker;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
 
 public class Utils {
+    public Utils() {
+        linkedEnchantments.put("unbreaking", Enchantment.DURABILITY);
+        linkedEnchantments.put("vanishing_curse", Enchantment.VANISHING_CURSE);
+        linkedEnchantments.put("efficiency", Enchantment.DIG_SPEED);
+        linkedEnchantments.put("silk_touch", Enchantment.SILK_TOUCH);
+        linkedEnchantments.put("protection", Enchantment.PROTECTION_ENVIRONMENTAL);
+        linkedEnchantments.put("fire_protection", Enchantment.PROTECTION_FIRE);
+        linkedEnchantments.put("projectile_protection", Enchantment.PROTECTION_PROJECTILE);
+        linkedEnchantments.put("blast_protection", Enchantment.PROTECTION_EXPLOSIONS);
+        linkedEnchantments.put("feather_falling", Enchantment.PROTECTION_FALL);
+        linkedEnchantments.put("aqua_affinity", Enchantment.WATER_WORKER);
+        linkedEnchantments.put("thorns", Enchantment.THORNS);
+        linkedEnchantments.put("respiration", Enchantment.OXYGEN);
+        linkedEnchantments.put("depth_strider", Enchantment.DEPTH_STRIDER);
+        linkedEnchantments.put("frost_walker", Enchantment.FROST_WALKER);
+        linkedEnchantments.put("binding_curse", Enchantment.BINDING_CURSE);
+        linkedEnchantments.put("sharpness", Enchantment.DAMAGE_ALL);
+        linkedEnchantments.put("smite", Enchantment.DAMAGE_UNDEAD);
+        linkedEnchantments.put("bane_of_arthropods", Enchantment.DAMAGE_ARTHROPODS);
+        linkedEnchantments.put("knockback", Enchantment.KNOCKBACK);
+        linkedEnchantments.put("looting", Enchantment.LOOT_BONUS_MOBS);
+        linkedEnchantments.put("fire_aspect", Enchantment.FIRE_ASPECT);
+        linkedEnchantments.put("sweeping", Enchantment.SWEEPING_EDGE);
+        linkedEnchantments.put("impaling", Enchantment.IMPALING);
+        linkedEnchantments.put("riptide", Enchantment.RIPTIDE);
+        linkedEnchantments.put("channeling", Enchantment.CHANNELING);
+        linkedEnchantments.put("flame", Enchantment.ARROW_FIRE);
+        linkedEnchantments.put("infinity", Enchantment.ARROW_INFINITE);
+        linkedEnchantments.put("loyalty", Enchantment.LOYALTY);
+        linkedEnchantments.put("multishot", Enchantment.MULTISHOT);
+        linkedEnchantments.put("piercing", Enchantment.PIERCING);
+        linkedEnchantments.put("power", Enchantment.ARROW_DAMAGE);
+        linkedEnchantments.put("punch", Enchantment.ARROW_KNOCKBACK);
+        linkedEnchantments.put("quick_charge", Enchantment.QUICK_CHARGE);
+    }
+
     private static final FileConfiguration config = Main.plugin.getConfig();
 
     public static void sendMessage(Player p, String msg, ChatColor color) {
@@ -101,5 +148,26 @@ public class Utils {
 
     public static boolean itemExists(ItemStack item) {
         return item != null && item.getType() != Material.AIR;
+    }
+
+    private static final HashMap<String, Enchantment> linkedEnchantments = new HashMap<>();
+
+    public static Enchantment getLinkedEnchantment(String id) {
+        return linkedEnchantments.get(id);
+    }
+
+    public static void closeInventory(@NotNull Player p) {
+        BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
+        scheduler.runTask(Main.plugin, new CloseInventoryRunnable(p));
+    }
+
+    private static class CloseInventoryRunnable implements Runnable {
+        Player p;
+        CloseInventoryRunnable(Player p) { this.p = p; }
+
+        @Override
+        public void run() {
+            Utils.closeInventory(p);
+        }
     }
 }
