@@ -1,27 +1,23 @@
 package global.oskar.easyenchanting.utils;
 
+import de.themoep.inventorygui.StaticGuiElement;
 import global.oskar.easyenchanting.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scheduler.BukkitWorker;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.function.Consumer;
+import java.util.Map;
 
 public class Utils {
     public Utils() {
@@ -58,12 +54,57 @@ public class Utils {
         linkedEnchantments.put("power", Enchantment.ARROW_DAMAGE);
         linkedEnchantments.put("punch", Enchantment.ARROW_KNOCKBACK);
         linkedEnchantments.put("quick_charge", Enchantment.QUICK_CHARGE);
+
+        colorCodes.put("&0", ChatColor.BLACK);
+        colorCodes.put("&1", ChatColor.DARK_BLUE);
+        colorCodes.put("&2", ChatColor.DARK_GREEN);
+        colorCodes.put("&3", ChatColor.DARK_AQUA);
+        colorCodes.put("&4", ChatColor.DARK_RED);
+        colorCodes.put("&5", ChatColor.DARK_PURPLE);
+        colorCodes.put("&6", ChatColor.GOLD);
+        colorCodes.put("&7", ChatColor.GRAY);
+        colorCodes.put("&8", ChatColor.DARK_GRAY);
+        colorCodes.put("&9", ChatColor.BLUE);
+        colorCodes.put("&a", ChatColor.GREEN);
+        colorCodes.put("&b", ChatColor.AQUA);
+        colorCodes.put("&c", ChatColor.RED);
+        colorCodes.put("&d", ChatColor.LIGHT_PURPLE);
+        colorCodes.put("&e", ChatColor.YELLOW);
+        colorCodes.put("&f", ChatColor.WHITE);
+        colorCodes.put("&k", ChatColor.MAGIC);
+        colorCodes.put("&l", ChatColor.BOLD);
+        colorCodes.put("&m", ChatColor.STRIKETHROUGH);
+        colorCodes.put("&n", ChatColor.UNDERLINE);
+        colorCodes.put("&o", ChatColor.ITALIC);
+        colorCodes.put("&r", ChatColor.RESET);
     }
 
     private static final FileConfiguration config = Main.plugin.getConfig();
 
+    public static final HashMap<String, ChatColor> colorCodes = new HashMap<>();
+
     public static void sendMessage(Player p, String msg, ChatColor color) {
-        p.sendMessage(config.getConfigurationSection("CONFIG").getString("prefix") + color + msg);
+        String prefix = config.getConfigurationSection("CONFIG").getString("prefix");
+        if (prefix == null) return;
+
+        for (Map.Entry<String, ChatColor> entry : colorCodes.entrySet()) {
+            msg = msg.replace(entry.getKey(), entry.getValue().toString());
+            prefix = prefix.replace(entry.getKey(), entry.getValue().toString());
+        }
+
+        p.sendMessage(prefix + color + msg);
+    }
+
+    public static void sendMessage(CommandSender sender, String msg, ChatColor color) {
+        String prefix = config.getConfigurationSection("CONFIG").getString("prefix");
+        if (prefix == null) return;
+
+        for (Map.Entry<String, ChatColor> entry : colorCodes.entrySet()) {
+            msg = msg.replace(entry.getKey(), entry.getValue().toString());
+            prefix = prefix.replace(entry.getKey(), entry.getValue().toString());
+        }
+
+        sender.sendMessage(prefix + color + msg);
     }
 
     public static void openHelp(Player p) {
@@ -87,20 +128,18 @@ public class Utils {
                 """);
 
         contents.addPage("""
-                in Kisten gefunden werden. Villager verkaufen keine verzauberten Buecher. Protection geht nur bis Level 2. Sharpness geht nur bis Level 4, Smite, Impaling und Bane of Arthropods bis Level 6. Impaling kann auf einem Schwert und auf einer Axt genutzt werden. Power geht nur bis Level 3. Riptide geht bis Level 5. Alles kostet viel mehr XP.
+                in Kisten gefunden werden. Villager verkaufen keine verzauberten B\u00FCcher. Protection geht nur bis Level 2. Sharpness geht nur bis Level 4, Smite, Impaling und Bane of Arthropods bis Level 6. Impaling kann auf einem Schwert und auf einer Axt genutzt werden. Power geht nur bis Level 3. Riptide geht bis Level 5. Alles kostet viel mehr XP.
                 """);
 
-        contents.addPage("" +
-                ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Zaubertisch-Hilfe"
-                + ChatColor.RESET +
+        contents.addPage(
                 """
                 
-                Im Zaubertisch-Menue gibt es 3 Kategorien:
+                Im Zaubertisch-Men\u00FC gibt es 3 Kategorien:
                 1. Werkzeuge
                 2. Waffen
-                3. Ruestung
+                3. R\u00FCstung
                 
-                Um ein Item zu verzaubern, musst du die Kategorie waehlen und das Item anklicken. Wenn das Item
+                Um ein Item zu verzaubern, musst du die Kategorie w\u00E4hlen und das Item anklicken. Wenn das Item
                 """);
 
         contents.addPage("""
@@ -120,32 +159,6 @@ public class Utils {
         return item;
     }
 
-    public static ItemStack createLoreItem(Material mat, Integer value, String name, String Lore) {
-        ItemStack item = new ItemStack(mat, value);
-        ItemMeta itemmeta = item.getItemMeta();
-        ArrayList<String> itemlore = new ArrayList<>();
-        itemlore.add(Lore);
-        itemmeta.setLore(itemlore);
-        itemmeta.setDisplayName(name);
-        item.setItemMeta(itemmeta);
-        return item;
-    }
-
-    public static ItemStack createEnchantmentSelector(@NotNull String name, @NotNull String id) {
-        return createLoreItem(Material.ENCHANTED_BOOK, 1, ChatColor.AQUA + name, ChatColor.YELLOW + "Cost: " + ChatColor.DARK_GREEN + config.getConfigurationSection(id).getInt("cost"));
-    }
-
-    public static ItemStack createEnchantmentSelector(@NotNull String name) {
-        String id = name.toLowerCase().replace(" ", "_");
-        return createLoreItem(Material.ENCHANTED_BOOK, 1, ChatColor.AQUA + name, ChatColor.YELLOW + "Cost: " + ChatColor.DARK_GREEN + config.getConfigurationSection(id).getInt("cost"));
-    }
-
-    public static boolean isCustomInventory(String inventoryTitle) {
-        inventoryTitle = ChatColor.stripColor(inventoryTitle);
-        return inventoryTitle.equals("Ruestung verzaubern") || inventoryTitle.equals("Waffen verzaubern") ||
-                inventoryTitle.equals("Werkzeuge verzaubern");
-    }
-
     public static boolean itemExists(ItemStack item) {
         return item != null && item.getType() != Material.AIR;
     }
@@ -161,13 +174,10 @@ public class Utils {
         scheduler.runTask(Main.plugin, new CloseInventoryRunnable(p));
     }
 
-    private static class CloseInventoryRunnable implements Runnable {
-        Player p;
-        CloseInventoryRunnable(Player p) { this.p = p; }
-
+    private record CloseInventoryRunnable(Player p) implements Runnable {
         @Override
-        public void run() {
-            Utils.closeInventory(p);
+            public void run() {
+                p.closeInventory();
+            }
         }
-    }
 }

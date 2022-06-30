@@ -1,15 +1,15 @@
-package global.oskar.easyenchanting.utils;
+package global.oskar.easyenchanting.lib;
 
 import global.oskar.easyenchanting.Main;
+import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class EnchantmentWrapper {
     private final String id;
@@ -42,12 +42,20 @@ public class EnchantmentWrapper {
         Enchantment ench = Utils.getLinkedEnchantment(id);
         int level = item.getEnchantmentLevel(ench);
 
+        for (Map.Entry<Enchantment, Integer> entry : item.getEnchantments().entrySet()) {
+            if (ench.conflictsWith(entry.getKey())) {
+                Utils.closeInventory(p);
+                Utils.sendMessage(p, "Diese Enchantments passen nicht zusammen!", ChatColor.RED);
+                return;
+            }
+        }
+
         if (level <= max) {
             p.setLevel(p.getLevel() - cost);
             item.addUnsafeEnchantment(ench, level + 1);
         } else {
             Utils.closeInventory(p);
-            Utils.sendMessage(p, "Dieses Enchantment hat bereits das hoechste Level!", ChatColor.RED);
+            Utils.sendMessage(p, "Dieses Enchantment hat bereits das h\u00F6chste Level!", ChatColor.RED);
         }
     }
 }

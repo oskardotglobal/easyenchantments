@@ -18,19 +18,14 @@
 
 package global.oskar.easyenchanting;
 
-import global.oskar.easyenchanting.listener.ArmorEnchanter;
+import global.oskar.easyenchanting.command.EnchantingHelpCommand;
+import global.oskar.easyenchanting.listener.DisableLibrariansListener;
 import global.oskar.easyenchanting.listener.EnchanterInteract;
-import global.oskar.easyenchanting.listener.GUIInvSetup;
-import global.oskar.easyenchanting.listener.GUISetups;
-import global.oskar.easyenchanting.listener.ToolEnchanter;
-import global.oskar.easyenchanting.listener.WeaponEnchanter;
 import global.oskar.easyenchanting.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -44,6 +39,7 @@ public class Main extends JavaPlugin {
     loadConfig();
     registerListeners();
     this.getLogger().setLevel(Level.FINEST);
+    this.getCommand("enchantinghelp").setExecutor(new EnchantingHelpCommand());
     new Utils();
   }
   
@@ -51,12 +47,8 @@ public class Main extends JavaPlugin {
   
   public void registerListeners() {
     PluginManager pm = Bukkit.getPluginManager();
-    pm.registerEvents(new GUIInvSetup(), this);
-    pm.registerEvents(new GUISetups(), this);
-    pm.registerEvents(new ToolEnchanter(), this);
-    pm.registerEvents(new WeaponEnchanter(), this);
     pm.registerEvents(new EnchanterInteract(), this);
-    pm.registerEvents(new ArmorEnchanter(), this);
+    pm.registerEvents(new DisableLibrariansListener(), this);
   }
 
   public void loadConfig() {

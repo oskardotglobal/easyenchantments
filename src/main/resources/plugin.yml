@@ -3,3 +3,8 @@ author: PixelAgent007
 version: 1.0.0
 main: global.oskar.easyenchanting.Main
 api-version: 1.19
+
+commands:
+  enchantinghelp:
+    description: Zeige das Hilfemenu zum Enchanter
+    usage: /enchantinghelp

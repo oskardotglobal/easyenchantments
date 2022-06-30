@@ -1,6 +1,6 @@
 package global.oskar.easyenchanting.listener;
 
-import global.oskar.easyenchanting.utils.GUILoader;
+import global.oskar.easyenchanting.lib.MainMenuGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ public class EnchanterInteract implements Listener {
             Player p = e.getPlayer();
             if (e.getClickedBlock().getType().equals(Material.ENCHANTING_TABLE) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
                 e.setCancelled(true);
-                GUILoader.build(p);
+                new MainMenuGUI().show(p);
             }
 
     }

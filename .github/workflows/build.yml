@@ -18,7 +18,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: shadowJar
       - name: Get version
         run: echo "::set-output name=version::$(cat build.gradle | grep 'version = "' | sed 's/.$//' | sed 's/version = "//')"
         id: version
@@ -41,6 +41,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/libs/easyenchanting-${{ steps.version.outputs.version }}.jar
+          asset_path: ./build/libs/easyenchanting-${{ steps.version.outputs.version }}-all.jar
           asset_name: easyenchanting-${{ steps.version.outputs.version }}.jar
           asset_content_type: application/jar
