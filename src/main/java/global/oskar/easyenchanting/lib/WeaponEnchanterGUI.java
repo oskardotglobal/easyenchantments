@@ -230,7 +230,7 @@ public class WeaponEnchanterGUI extends InventoryGui {
                 }
             }
             case "piercing" -> {
-                if (enchant.getType() != Material.BOW || enchant.getType() != Material.CROSSBOW) {
+                if (enchant.getType() != Material.BOW && enchant.getType() != Material.CROSSBOW) {
                     Utils.closeInventory(p);
                     Utils.sendMessage(p, "Du kannst nur einen Bogen oder einen Crossbow mit Piercing verzaubern!", ChatColor.RED);
                 } else {
