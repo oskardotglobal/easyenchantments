@@ -19,6 +19,7 @@
 package global.oskar.easyenchanting;
 
 import global.oskar.easyenchanting.command.EnchantingHelpCommand;
+import global.oskar.easyenchanting.listener.AnvilInteractListener;
 import global.oskar.easyenchanting.listener.DisableLibrariansListener;
 import global.oskar.easyenchanting.listener.EnchanterInteract;
 import global.oskar.easyenchanting.utils.Utils;
@@ -49,6 +50,7 @@ public class Main extends JavaPlugin {
     PluginManager pm = Bukkit.getPluginManager();
     pm.registerEvents(new EnchanterInteract(), this);
     pm.registerEvents(new DisableLibrariansListener(), this);
+    pm.registerEvents(new AnvilInteractListener(), this);
   }
 
   public void loadConfig() {
