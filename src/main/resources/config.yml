@@ -11,7 +11,7 @@ CONFIG:
 # Everything
 unbreaking:
   max: 4
-  cost: 1
+  cost: 10
 
 vanishing_curse:
   max: 1
