@@ -11,25 +11,32 @@ import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.inventory.Recipe;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+
 public class DisableLibrariansListener implements Listener {
+
+    private MerchantRecipe getMissingItemMerchantRecipe(Material material, Integer price) {
+        MerchantRecipe recipe = new MerchantRecipe(new ItemStack(material, ThreadLocalRandom.current().nextInt(2,  5)), ThreadLocalRandom.current().nextInt(9,  21));
+        recipe.setSpecialPrice(price);
+        return recipe;
+    }
+
     private final HashMap<Material, MerchantRecipe> replace = new HashMap<>();
 
     public DisableLibrariansListener() {
-        replace.put(Material.DIAMOND_BOOTS, new MerchantRecipe(new ItemStack(Material.ACACIA_SAPLING, ThreadLocalRandom.current().nextInt(2,  5)), ThreadLocalRandom.current().nextInt(9,  21)));
-        replace.put(Material.DIAMOND_HELMET, new MerchantRecipe(new ItemStack(Material.DARK_OAK_SAPLING, ThreadLocalRandom.current().nextInt(2,  5)), ThreadLocalRandom.current().nextInt(9,  21)));
-        replace.put(Material.DIAMOND_CHESTPLATE, new MerchantRecipe(new ItemStack(Material.JUNGLE_SAPLING, ThreadLocalRandom.current().nextInt(2,  5)), ThreadLocalRandom.current().nextInt(9,  21)));
-        replace.put(Material.DIAMOND_LEGGINGS, new MerchantRecipe(new ItemStack(Material.BAMBOO, ThreadLocalRandom.current().nextInt(2,  5)), ThreadLocalRandom.current().nextInt(9,  21)));
-        replace.put(Material.DIAMOND_AXE, null);
-        replace.put(Material.DIAMOND_PICKAXE, null);
-        replace.put(Material.DIAMOND_SHOVEL, null);
-        replace.put(Material.DIAMOND_SWORD, null);
-        replace.put(Material.DIAMOND_HOE, null);
+        replace.put(Material.DIAMOND_AXE, getMissingItemMerchantRecipe(Material.ACACIA_SAPLING, 2));
+        replace.put(Material.DIAMOND_CHESTPLATE, getMissingItemMerchantRecipe(Material.DARK_OAK_SAPLING, 2));
+        replace.put(Material.DIAMOND_LEGGINGS, getMissingItemMerchantRecipe(Material.JUNGLE_SAPLING, 2));
+        replace.put(Material.DIAMOND_HELMET, getMissingItemMerchantRecipe(Material.BAMBOO, 2));
+        replace.put(Material.DIAMOND_PICKAXE, getMissingItemMerchantRecipe(Material.MANGROVE_PROPAGULE, 2));
+        replace.put(Material.DIAMOND_SHOVEL, getMissingItemMerchantRecipe(Material.DIAMOND, 15));
+        replace.put(Material.DIAMOND_SWORD, getMissingItemMerchantRecipe(Material.DEEPSLATE, 1));
     }
 
     @EventHandler

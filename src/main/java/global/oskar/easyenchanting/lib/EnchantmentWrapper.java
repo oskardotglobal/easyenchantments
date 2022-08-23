@@ -43,14 +43,14 @@ public class EnchantmentWrapper {
         int level = item.getEnchantmentLevel(ench);
 
         for (Map.Entry<Enchantment, Integer> entry : item.getEnchantments().entrySet()) {
-            if (ench.conflictsWith(entry.getKey()) && !item.getEnchantments().containsKey(ench)) {
+            if (entry.getKey().conflictsWith(ench) && !item.getEnchantments().containsKey(entry.getKey())) {
                 Utils.closeInventory(p);
                 Utils.sendMessage(p, "Diese Enchantments passen nicht zusammen!", ChatColor.RED);
                 return;
             }
         }
 
-        if (level <= max) {
+        if (level < max) {
             p.setLevel(p.getLevel() - cost);
             item.addUnsafeEnchantment(ench, level + 1);
         } else {

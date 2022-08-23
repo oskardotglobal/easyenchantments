@@ -154,6 +154,7 @@ public class Utils {
     public static ItemStack createItem(Material mat, Integer value, String name) {
         ItemStack item = new ItemStack(mat, value);
         ItemMeta itemmeta = item.getItemMeta();
+        assert itemmeta != null;
         itemmeta.setDisplayName(name);
         item.setItemMeta(itemmeta);
         return item;
@@ -179,5 +180,10 @@ public class Utils {
             public void run() {
                 p.closeInventory();
             }
-        }
+    }
+
+    public static String isEnchantAllowed(ItemStack item) {
+        if (item.getEnchantments().size() == 3) return "max";
+        return null;
+    }
 }

@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class AnvilInteractListener implements Listener {
     public void onAnvilInteract(PrepareAnvilEvent e) {
         Player p = (Player) e.getView().getPlayer();
@@ -14,7 +16,7 @@ public class AnvilInteractListener implements Listener {
 
         if (item == null) return;
 
-        if (item.getEnchantments().size() == 3) {
+        if (Objects.equals(Utils.isEnchantAllowed(item), "max")) {
             Utils.closeInventory(p);
             Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
         }
