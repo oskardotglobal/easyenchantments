@@ -124,7 +124,7 @@ public class Utils {
                 
                 Folgendes ist anders:
                 Jedes Item kann maximal dreimal verzaubert werden.
-                Swift Sneak, Soul Speed, Fortune und Mending koennen nur
+                Swift Sneak, Soul Speed, Fortune und Mending k\u00F6nnen nur
                 """);
 
         contents.addPage("""
@@ -143,7 +143,7 @@ public class Utils {
                 """);
 
         contents.addPage("""
-                nicht in die Kategorie passt, du versuchst, ein Item mit einer unpassenden Verzauberung zu versehen oder ein Item bereits 3 Verzauberungen hat, dann schliesst sich das Menu.
+                nicht in die Kategorie passt, du versuchst, ein Item mit einer unpassenden Verzauberung zu versehen oder ein Item bereits 3 Verzauberungen hat, dann schliesst sich das Men\u00FC.
                 """);
 
         book.setItemMeta(contents);
