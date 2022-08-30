@@ -181,9 +181,4 @@ public class Utils {
                 p.closeInventory();
             }
     }
-
-    public static String isEnchantAllowed(ItemStack item) {
-        if (item.getEnchantments().size() == 3) return "max";
-        return null;
-    }
 }

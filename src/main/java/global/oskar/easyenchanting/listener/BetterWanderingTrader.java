@@ -15,8 +15,8 @@ import java.util.*;
 
 public class BetterWanderingTrader implements Listener {
 
-    private MerchantRecipe createRecipe(Material material, Integer price) {
-        MerchantRecipe recipe = new MerchantRecipe(new ItemStack(material), 1000, 1000, false);
+    private MerchantRecipe createRecipe(Material material, Integer price, Integer amount) {
+        MerchantRecipe recipe = new MerchantRecipe(new ItemStack(material, amount), 1000, 1000, false);
 
         List<ItemStack> ingredients = new ArrayList<>();
         ingredients.add(new ItemStack(Material.EMERALD, price));
@@ -30,20 +30,20 @@ public class BetterWanderingTrader implements Listener {
     private final List<MerchantRecipe> wanderingTraderRecipes = new ArrayList<>();
 
     public BetterWanderingTrader() {
-        wanderingTraderRecipes.add(createRecipe(Material.ACACIA_SAPLING, 2));
-        wanderingTraderRecipes.add(createRecipe(Material.DARK_OAK_SAPLING, 2));
-        wanderingTraderRecipes.add(createRecipe(Material.JUNGLE_SAPLING, 2));
-        wanderingTraderRecipes.add(createRecipe(Material.BAMBOO, 2));
-        wanderingTraderRecipes.add(createRecipe(Material.MANGROVE_PROPAGULE, 2));
-        wanderingTraderRecipes.add(createRecipe(Material.DIAMOND, 15));
-        wanderingTraderRecipes.add(createRecipe(Material.DEEPSLATE, 1));
-        wanderingTraderRecipes.add(createRecipe(Material.CALCITE, 1));
-        wanderingTraderRecipes.add(createRecipe(Material.SPORE_BLOSSOM, 6));
-        wanderingTraderRecipes.add(createRecipe(Material.TUFF, 1));
-        wanderingTraderRecipes.add(createRecipe(Material.NETHERRACK, 1));
-        wanderingTraderRecipes.add(createRecipe(Material.SPONGE, 8));
-        wanderingTraderRecipes.add(createRecipe(Material.TALL_GRASS, 8));
-        wanderingTraderRecipes.add(createRecipe(Material.FERN, 8));
+        wanderingTraderRecipes.add(createRecipe(Material.ACACIA_SAPLING, 2, 3));
+        wanderingTraderRecipes.add(createRecipe(Material.DARK_OAK_SAPLING, 2, 3));
+        wanderingTraderRecipes.add(createRecipe(Material.JUNGLE_SAPLING, 2, 3));
+        wanderingTraderRecipes.add(createRecipe(Material.BAMBOO, 2, 10));
+        wanderingTraderRecipes.add(createRecipe(Material.MANGROVE_PROPAGULE, 2, 3));
+        wanderingTraderRecipes.add(createRecipe(Material.DIAMOND, 15, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.DEEPSLATE, 1, 10));
+        wanderingTraderRecipes.add(createRecipe(Material.CALCITE, 1, 10));
+        wanderingTraderRecipes.add(createRecipe(Material.SPORE_BLOSSOM, 6, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.TUFF, 1, 10));
+        wanderingTraderRecipes.add(createRecipe(Material.NETHERRACK, 1, 10));
+        wanderingTraderRecipes.add(createRecipe(Material.SPONGE, 8, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.TALL_GRASS, 2, 3));
+        wanderingTraderRecipes.add(createRecipe(Material.FERN, 2, 3));
 
     }
 
@@ -52,15 +52,6 @@ public class BetterWanderingTrader implements Listener {
         switch (e.getEntityType()) {
             case WANDERING_TRADER -> {
                 WanderingTrader villager = (WanderingTrader) e.getEntity();
-                List<MerchantRecipe> recipes = Lists.newArrayList(villager.getRecipes());
-
-                Iterator<MerchantRecipe> recipeIterator;
-
-                for (recipeIterator = recipes.iterator(); recipeIterator.hasNext(); ) {
-                    MerchantRecipe recipe = recipeIterator.next();
-                    recipes.remove(recipe);
-                }
-
                 villager.setRecipes(this.wanderingTraderRecipes);
             }
 
