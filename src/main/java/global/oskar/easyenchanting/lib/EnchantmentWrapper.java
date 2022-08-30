@@ -30,10 +30,12 @@ public class EnchantmentWrapper {
         Enchantment ench = Utils.getLinkedEnchantment(id);
         int level = item.getEnchantmentLevel(ench);
 
-        if (item.getEnchantments().size() == 3 && !item.containsEnchantment(ench)) {
-            Utils.closeInventory(p);
-            Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
-            return;
+        if (item.getEnchantments().size() == 3) {
+            if (!item.containsEnchantment(ench)) {
+                Utils.closeInventory(p);
+                Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
+                return;
+            }
         }
 
         if (p.getLevel() < cost) {
