@@ -1,6 +1,6 @@
 name: EasyEnchanting
 author: PixelAgent007
-version: 1.1.0
+version: 1.1.1
 main: global.oskar.easyenchanting.Main
 api-version: 1.19
 
