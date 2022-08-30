@@ -16,7 +16,7 @@ import java.util.*;
 public class BetterWanderingTrader implements Listener {
 
     private MerchantRecipe createRecipe(Material material, Integer price, Integer amount) {
-        MerchantRecipe recipe = new MerchantRecipe(new ItemStack(material, amount), 1000, 1000, false);
+        MerchantRecipe recipe = new MerchantRecipe(new ItemStack(material, amount), 0, 1000, false);
 
         List<ItemStack> ingredients = new ArrayList<>();
         ingredients.add(new ItemStack(Material.EMERALD, price));
@@ -44,7 +44,21 @@ public class BetterWanderingTrader implements Listener {
         wanderingTraderRecipes.add(createRecipe(Material.SPONGE, 8, 1));
         wanderingTraderRecipes.add(createRecipe(Material.TALL_GRASS, 2, 3));
         wanderingTraderRecipes.add(createRecipe(Material.FERN, 2, 3));
-
+        wanderingTraderRecipes.add(createRecipe(Material.BRAIN_CORAL_FAN, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.FIRE_CORAL_FAN, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.TUBE_CORAL_FAN, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.HORN_CORAL_FAN, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.BUBBLE_CORAL_FAN, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.BRAIN_CORAL, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.FIRE_CORAL, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.TUBE_CORAL, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.HORN_CORAL, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.BUBBLE_CORAL, 2, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.BRAIN_CORAL_BLOCK, 1, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.FIRE_CORAL_BLOCK, 1, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.TUBE_CORAL_BLOCK, 1, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.HORN_CORAL_BLOCK, 1, 1));
+        wanderingTraderRecipes.add(createRecipe(Material.BUBBLE_CORAL_BLOCK, 1, 1));
     }
 
     @EventHandler
