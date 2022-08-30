@@ -1,6 +1,5 @@
 package global.oskar.easyenchanting.listener;
 
-import com.google.common.collect.Lists;
 import org.bukkit.Material;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.WanderingTrader;
@@ -11,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
 import java.util.*;
-
 
 public class BetterWanderingTrader implements Listener {
 

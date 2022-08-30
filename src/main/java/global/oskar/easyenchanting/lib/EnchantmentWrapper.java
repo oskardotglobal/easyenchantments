@@ -27,7 +27,10 @@ public class EnchantmentWrapper {
     }
 
     public void enchant(ItemStack item) {
-        if (item.getEnchantments().size() == 3) {
+        Enchantment ench = Utils.getLinkedEnchantment(id);
+        int level = item.getEnchantmentLevel(ench);
+
+        if (item.getEnchantments().size() == 3 && !item.containsEnchantment(ench)) {
             Utils.closeInventory(p);
             Utils.sendMessage(p, "Dieses Item hat bereits 3 Enchantments!", ChatColor.RED);
             return;
@@ -39,11 +42,8 @@ public class EnchantmentWrapper {
             return;
         }
 
-        Enchantment ench = Utils.getLinkedEnchantment(id);
-        int level = item.getEnchantmentLevel(ench);
-
         for (Map.Entry<Enchantment, Integer> entry : item.getEnchantments().entrySet()) {
-            if (entry.getKey().conflictsWith(ench) && !item.getEnchantments().containsKey(entry.getKey())) {
+            if (entry.getKey().conflictsWith(ench) && !item.containsEnchantment(entry.getKey())) {
                 Utils.closeInventory(p);
                 Utils.sendMessage(p, "Diese Enchantments passen nicht zusammen!", ChatColor.RED);
                 return;
